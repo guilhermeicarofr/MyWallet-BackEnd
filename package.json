@@ -1,0 +1,32 @@
+{
+  "name": "mywallet-back",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guilhermeicarofr/MyWallet-BackEnd.git"
+  },
+  "author": "guilhermeicarofr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guilhermeicarofr/MyWallet-BackEnd/issues"
+  },
+  "homepage": "https://github.com/guilhermeicarofr/MyWallet-BackEnd#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "joi": "^17.6.0",
+    "mongodb": "^4.9.1",
+    "string-strip-html": "^11.6.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
