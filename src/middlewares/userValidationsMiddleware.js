@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 
-import { signUpSchema, signInSchema } from "../schemas/userSchemas.js";
+import { signUpSchema, signInSchema } from '../schemas/userSchemas.js';
 import { db } from '../database/db.js';
 
 async function signUpValidation(req,res,next) {

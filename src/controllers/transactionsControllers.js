@@ -36,4 +36,18 @@ async function createTransaction(req,res) {
     }
 }
 
-export { createTransaction };
+async function readTransactions(req,res) {
+    const { userId } = res.locals;
+
+    try {
+        const transactions = await db.collection('transactions').find({
+            userId: { $eq: userId }
+        }).toArray();
+        res.send(transactions);
+    } catch(error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+}
+
+export { createTransaction, readTransactions };
