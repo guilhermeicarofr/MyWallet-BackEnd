@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
 import { signUp, signIn } from '../controllers/userControllers.js';
-import { signUpValidation } from '../middlewares/userValidationsMiddleware.js';
+import { signUpValidation, signInValidation } from '../middlewares/userValidationsMiddleware.js';
 
-const authRouter = Router();
+const userRouter = Router();
 
-authRouter.post('/signup', signUpValidation, signUp);
-//authRouter.post('/signin', signIn);
+userRouter.post('/signup', signUpValidation, signUp);
+userRouter.post('/signin', signInValidation, signIn);
 
-export { authRouter };
+export { userRouter };

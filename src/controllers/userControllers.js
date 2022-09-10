@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import { v4 as uuid } from 'uuid';
 
 import { db } from '../database/db.js';
 
@@ -19,8 +20,25 @@ async function signUp(req,res) {
         res.sendStatus(201);
     } catch (error) {
         res.sendStatus(500);
-        console.log(error);        
+        console.log(error);
     }
 }
 
-export { signUp };
+async function signIn(req,res) {
+    const { _id } = res.locals?.user;
+    const token = uuid();
+
+    try {
+        await db.collection('sessions').insertOne({
+            token,
+            userId: _id
+        });
+
+        res.status(200).send(token);
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error);    
+    }
+}
+
+export { signUp, signIn };
