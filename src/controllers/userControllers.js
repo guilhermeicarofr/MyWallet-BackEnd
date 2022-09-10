@@ -25,13 +25,13 @@ async function signUp(req,res) {
 }
 
 async function signIn(req,res) {
-    const { _id } = res.locals?.user;
+    const { userId } = res.locals;
     const token = uuid();
 
     try {
         await db.collection('sessions').insertOne({
             token,
-            userId: _id
+            userId
         });
 
         res.status(200).send(token);

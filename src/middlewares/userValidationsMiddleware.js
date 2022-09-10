@@ -47,9 +47,8 @@ async function signInValidation(req,res,next) {
             console.log('Password invalid');
             return res.status(403).send('Email or password not valid!');
         }
-        
-        delete checkuser.password;
-        res.locals.user = checkuser;
+
+        res.locals.userId = checkuser._id;
         next();
     } catch (error) {
         console.log(error);
