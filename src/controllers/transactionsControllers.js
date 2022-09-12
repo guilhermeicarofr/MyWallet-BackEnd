@@ -1,3 +1,4 @@
+import { ObjectID } from 'bson';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc.js';
 
@@ -50,4 +51,28 @@ async function readTransactions(req,res) {
     }
 }
 
-export { createTransaction, readTransactions };
+async function deleteTransaction(req,res) {
+    const { id } = req.params;
+    const { userId } = res.locals;
+
+    try {
+        const transaction = await db.collection('transactions').findOne({
+            _id: ObjectID(id)
+        });
+        if(transaction.userId.str !== userId.str) {
+            console.log('User not authorized to delete');
+            return res.status(403).send('Não autorizado!');    
+        }
+
+        await db.collection('transactions').deleteOne({
+            _id: ObjectID(id)
+        });
+
+        res.status(200).send('Transação apagada');
+    } catch(error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+}
+
+export { createTransaction, readTransactions, deleteTransaction };
