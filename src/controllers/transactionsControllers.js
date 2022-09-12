@@ -67,7 +67,16 @@ async function deleteTransaction(req,res) {
         await db.collection('transactions').deleteOne({
             _id: ObjectID(id)
         });
-
+        if(transaction.type==='+') {
+            const prevBalance = await db.collection('balances').findOne({ userId });
+            const newBalance = Number(prevBalance.value) - Number(transaction.value);
+            await db.collection('balances').updateOne({ userId }, { $set:{ value: newBalance } });
+        } else if (transaction.type==='-') {
+            const prevBalance = await db.collection('balances').findOne({ userId });
+            const newBalance = Number(prevBalance.value) + Number(transaction.value);
+            await db.collection('balances').updateOne({ userId }, { $set:{ value: newBalance } });
+        }
+        
         res.status(200).send('Transação apagada');
     } catch(error) {
         console.log(error);
